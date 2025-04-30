@@ -1,6 +1,6 @@
-import SceneManager from "../Managers/SceneManager.js";
-import RendererManager from "../Managers/RendererManager.js";
-import CameraManager from "../Managers/CameraManager.js";
+import SceneManager from "@/Managers/SceneManager.js";
+import RendererManager from "@/Managers/RendererManager.js";
+import CameraManager from "@/Managers/CameraManager.js";
 
 const Managers = {
   RendererManager: ({ canvas }) => new RendererManager({ canvas }),

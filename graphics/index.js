@@ -1,26 +1,36 @@
-import Common from "./Common";
-import Output from "./Output";
-import Input from "./Input";
+import Common from "@/Common";
+import Output from "@/Output";
+import Input from "@/Input";
 
 import Stats from "stats.js";
 
 export default class {
   constructor({ canvas }) {
-    const href = window.location.hash;
-
-    if (href === "#debug") {
-      this.stats = new Stats();
-      document.body.appendChild(this.stats.dom);
-
-      this.stats.showPanel(0);
-    }
-
     Input.init();
     Common.init({ canvas });
 
-    this.output = new Output();
+    this.render = this.render.bind(this);
 
-    this.init();
+    Common.resources.on("assetsLoaded", () => {
+      this.output = new Output();
+
+      const href = window.location.hash;
+
+      if (href === "#debug") {
+        this.stats = new Stats();
+        document.body.appendChild(this.stats.dom);
+
+        this.stats.showPanel(0);
+
+        Common.initPane();
+        this.output.setDebug(Common.pane);
+      }
+
+      this.init();
+      this.render();
+    });
+
+    Common.loadAssets();
   }
 
   init() {

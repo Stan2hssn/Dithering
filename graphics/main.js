@@ -1,4 +1,4 @@
-import App from "./index.js";
+import App from "@/index.js";
 
 let app = null;
 
@@ -10,7 +10,6 @@ function onMounted() {
   }
 
   app = new App({ canvas }); // Ensure you're passing an object with a canvas property
-  app.render();
 }
 
 document.addEventListener("DOMContentLoaded", onMounted, true);

@@ -1,17 +1,30 @@
-import Device from "./pure/Device";
+import gsap from "gsap";
+import Device from "@/pure/Device";
 import { Vector2 } from "three";
 
 class Input {
   constructor() {
     this.coords = new Vector2();
-    this.mouseMoved = false;
-    this.prevCoords = new Vector2();
+    this.smoothCoords = new Vector2();
+
     this.delta = new Vector2();
+    this.speed = 0;
+    this.speedNormalized = 0;
+    this.VelocityX = 0;
+    this.VelocityY = 0;
+
+    this.mouseMovedX = false;
+    this.mouseMovedY = false;
+
+    this.prevCoords = new Vector2();
+
     this.timer = null;
     this.count = 0;
   }
 
   init() {
+    this.initSmooth();
+
     document.addEventListener(
       "mousemove",
       this.onDocumentMouseMove.bind(this),
@@ -29,16 +42,67 @@ class Input {
     );
   }
 
+  initSmooth() {
+    this.coordsToX = gsap.quickTo(this.smoothCoords, "x", {
+      duration: 0.4,
+      ease: "linear",
+      onStart: () => {
+        this.mouseMovedX = true;
+      },
+      onComplete: () => {
+        this.mouseMovedX = false;
+      },
+      onUpdate: () => {
+        this.delta.x = this.getTravel(this.smoothCoords.x - this.prevCoords.x);
+
+        this.VelocityX = gsap.utils.mapRange(
+          -1,
+          1,
+          -Device.viewport.width / 2,
+          Device.viewport.width / 2,
+        )(this.delta.x);
+      },
+    });
+    this.coordsToY = gsap.quickTo(this.smoothCoords, "y", {
+      duration: 0.4,
+      ease: "linear",
+      onStart: () => {
+        this.mouseMovedY = true;
+      },
+      onComplete: () => {
+        this.mouseMovedY = false;
+      },
+      onUpdate: () => {
+        this.delta.y = this.getTravel(this.smoothCoords.y - this.prevCoords.y);
+
+        this.VelocityY = gsap.utils.mapRange(
+          -1,
+          1,
+          -Device.viewport.height / 2,
+          Device.viewport.height / 2,
+        )(this.delta.y);
+
+        this.speed = Math.max(Math.abs(this.delta.x), Math.abs(this.delta.y));
+        this.speedNormalized = gsap.utils.clamp(0, 1, this.speed);
+      },
+    });
+  }
+
+  getTravel(value) {
+    return Math.round(value * 100) / 100;
+  }
+
   setCoords(x, y) {
     if (this.timer) clearTimeout(this.timer);
     this.coords.set(
-      (x / Device.viewport.width) * 2 - 1,
-      -(y / Device.viewport.height) * 2 + 1,
+      x / Device.viewport.width,
+      -(y / Device.viewport.height) + 1,
     );
-    this.mouseMoved = true;
-    this.timer = setTimeout(() => {
-      this.mouseMoved = false;
-    }, 100);
+
+    this.coordsToX(this.coords.x);
+    this.coordsToY(this.coords.y);
+
+    this.prevCoords.copy(this.coords);
   }
 
   onDocumentMouseMove(event) {
@@ -60,9 +124,6 @@ class Input {
   }
 
   render() {
-    this.delta.subVectors(this.coords, this.prevCoords);
-    this.prevCoords.copy(this.coords);
-
     if (this.prevCoords.x === 0 && this.prevCoords.y === 0)
       this.delta.set(0, 0);
   }

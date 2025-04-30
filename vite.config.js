@@ -2,6 +2,12 @@ import glsl from "vite-plugin-glsl";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  base: "/",
+  resolve: {
+    alias: {
+      "@": "/graphics",
+    },
+  },
   plugins: [
     glsl({
       include: [

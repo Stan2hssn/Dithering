@@ -11,12 +11,18 @@ importers:
       gsap:
         specifier: ^3.12.7
         version: 3.12.7
+      mitt:
+        specifier: ^3.0.1
+        version: 3.0.1
       stats.js:
         specifier: ^0.17.0
         version: 0.17.0
       three:
         specifier: ^0.161.0
         version: 0.161.0
+      tweakpane:
+        specifier: ^4.0.5
+        version: 4.0.5
     devDependencies:
       prettier:
         specifier: 3.2.5
@@ -261,6 +267,9 @@ packages:
   gsap@3.12.7:
     resolution: {integrity: sha512-V4GsyVamhmKefvcAKaoy0h6si0xX7ogwBoBSs2CTJwt7luW0oZzC0LhdkyuKV8PJAXr7Yaj8pMjCKD4GJ+eEMg==}
 
+  mitt@3.0.1:
+    resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
+
   nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -296,6 +305,9 @@ packages:
 
   three@0.161.0:
     resolution: {integrity: sha512-LC28VFtjbOyEu5b93K0bNRLw1rQlMJ85lilKsYj6dgTu+7i17W+JCCEbvrpmNHF1F3NAUqDSWq50UD7w9H2xQw==}
+
+  tweakpane@4.0.5:
+    resolution: {integrity: sha512-rxEXdSI+ArlG1RyO6FghC4ZUX8JkEfz8F3v1JuteXSV0pEtHJzyo07fcDG+NsJfN5L39kSbCYbB9cBGHyuI/tQ==}
 
   vite-plugin-glsl@1.3.0:
     resolution: {integrity: sha512-SzEoLet9Bp5VSozjrhUiSc3xX1+u7rCTjXAsq4qWM3u8UjilI76A9ucX/T+CRGQCe25j50GSY+9mKSGUVPET1w==}
@@ -484,6 +496,8 @@ snapshots:
 
   gsap@3.12.7: {}
 
+  mitt@3.0.1: {}
+
   nanoid@3.3.7: {}
 
   picocolors@1.0.0: {}
@@ -522,6 +536,8 @@ snapshots:
   stats.js@0.17.0: {}
 
   three@0.161.0: {}
+
+  tweakpane@4.0.5: {}
 
   vite-plugin-glsl@1.3.0(rollup@4.9.6)(vite@5.1.1):
     dependencies:

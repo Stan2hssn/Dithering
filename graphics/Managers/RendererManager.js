@@ -1,15 +1,16 @@
 import { WebGLRenderer } from "three";
 
-import Device from "../pure/Device.js";
+import Device from "@/pure/Device.js";
 
 class RendererManager {
   constructor({ canvas }) {
     this.renderer = new WebGLRenderer({
       canvas,
-      alpha: false,
-      stencil: false,
       powerPreference: "high-performance",
+      alpha: false,
       antialias: false,
+      depth: true,
+      stencil: false,
     });
 
     this.renderer.autoClear = false;

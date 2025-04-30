@@ -1,6 +1,11 @@
-import Device from "./pure/Device.js";
+import Device from "@/pure/Device.js";
 
-import Managers from "./pure/Managers.js";
+import Managers from "@/pure/Managers.js";
+
+import Library from "@/pure/Library.js";
+
+import assets from "@/pure/assets.js";
+import { Pane } from "tweakpane";
 
 class Common {
   // create a scene and the parameters for the scene
@@ -16,12 +21,27 @@ class Common {
     this.render = this.render.bind(this);
   }
 
+  setResources() {
+    this.resources = new Library();
+  }
+
+  loadAssets() {
+    this.resources.loadAssets(assets);
+  }
+
+  initPane() {
+    this.pane = new Pane();
+    this.setDebug();
+  }
+
   init({ canvas }) {
     this.canvas = canvas;
 
     this.rendererManager = Managers.RendererManager({ canvas });
     this.cameraManager = Managers.CameraManager(this.params);
     this.sceneManager = Managers.SceneManager(this.params);
+
+    this.setResources();
 
     this.cameraManager.setCameras();
   }
@@ -49,6 +69,8 @@ class Common {
     this.rendererManager.resize();
     this.cameraManager.resize(aspectRatio);
   }
+
+  setDebug() {}
 }
 
 export default new Common();

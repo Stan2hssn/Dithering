@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "gsap": "^3.12.7",
+    "mitt": "^3.0.1",
+    "tweakpane": "^4.0.5",
     "stats.js": "^0.17.0",
     "three": "^0.161.0"
   }
